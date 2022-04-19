@@ -1,2 +1,2 @@
-# script
+# Script
 Script vari
