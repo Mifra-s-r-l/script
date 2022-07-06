@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#sudo nmcli connection show -> get UUID
-#$1 -> UUID
-#$2 -> ipaddr/CIDR  
+#$2 -> ipaddr/CIDR  (es.192.168.1.2/24)
 
-sudo nmcli connection modify $1 IPv4.address $2
-sudo nmcli connection modify $1 IPv4.gateway 192.168.1.1
-sudo nmcli connection modify $1 IPv4.dns 8.8.8.8
-sudo nmcli connection modify $1 IPv4.method manual
-sudo nmcli connection down $1
-sudo nmcli connection up $1
+UUID=`nmcli connection show | tail -1 | awk '{print $2}'`
+
+sudo nmcli connection modify $UUID IPv4.address $2
+sudo nmcli connection modify $UUID IPv4.gateway 192.168.1.1
+sudo nmcli connection modify $UUID IPv4.dns 8.8.8.8
+sudo nmcli connection modify $UUID IPv4.method manual
+sudo nmcli connection down $UUID
+sudo nmcli connection up $UUID
